@@ -3,7 +3,7 @@ import javax.swing.*;
 public class App {
     public static void main(String[] args) throws Exception {
         int boardWidth = 960;
-        int boardHeight = 640;
+        int boardHeight = 850;
 
         JFrame frame = new JFrame("Flappy Bird");
         //frame.setVisible(true);

@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class FlappyBird extends JPanel {
     int boardwidth = 960;
-    int boardHeight = 640;
+    int boardHeight = 850;
 
 
     //image
@@ -13,6 +13,31 @@ public class FlappyBird extends JPanel {
     Image birdImg;
     Image toppipeImg;
     Image bottompipeImg;
+
+
+    //bird
+    int birdX = boardwidth/8;
+    int birdY = boardHeight/2;
+    int birdWidth = 55;
+    int birdHeight = 50;
+
+
+    class Bird {
+        int x = birdX;
+        int y = birdY;
+        int width = birdWidth;
+        int height = birdHeight;
+        Image img;
+
+        Bird (Image img) {
+            this.img = img;
+        }
+    }
+
+
+    //game logic
+    Bird bird;
+
 
 
     FlappyBird(){
@@ -29,6 +54,10 @@ public class FlappyBird extends JPanel {
         toppipeImg = new ImageIcon (getClass().getResource("./toppipe.png")).getImage();
 
         bottompipeImg = new ImageIcon(getClass().getResource("./bottompipe.png")).getImage();
+
+
+        //bird
+        bird = new Bird(birdImg);
     }
 
 
@@ -39,6 +68,12 @@ public class FlappyBird extends JPanel {
 
 
     public void draw(Graphics g){
-        
+
+        //background
+
+        g.drawImage (backgroundImg, 0, 0, boardwidth, boardHeight, null);
+
+        //bird
+        g.drawImage (bird.img, bird.x, bird.y, bird.width, bird.height, null);
     }
 }
