@@ -217,6 +217,17 @@ void placePipes(){
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             velocityY = -9;
+
+            if (gameOver) {
+                //restart game by resetting conditions
+                bird.y = birdY;
+                velocityY = 0;
+                pipes.clear();
+                gameOver = false;
+                score = 0;
+                gameLoop.start();
+                placePipeTimer.start();
+            }
         }
     }
 
