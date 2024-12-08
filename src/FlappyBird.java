@@ -7,6 +7,7 @@ import java.nio.channels.Pipe;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -116,7 +117,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
 
         gameLoop.start();
     }
-void placePipes(){
+    void placePipes(){
         
         int randomPipeY = (int) (pipeY - pipeHeight/4 - Math.random()*(pipeHeight/2));
         int openingSpace = boardHeight/4;
@@ -156,7 +157,7 @@ void placePipes(){
 
         }
 
- //score
+        //score
         g.setColor(Color.white);
 
         g.setFont(new Font("Arial", Font.PLAIN, 32));
@@ -182,8 +183,9 @@ void placePipes(){
             pipe.x += velocityX;
 
              if (!pipe.passed && bird.x > pipe.x + pipe.width) {
-                score += 0.5; 
+                 
                 pipe.passed = true;
+                score += 0.5;
             }
 
             if (collision(bird, pipe)) {
@@ -197,7 +199,8 @@ void placePipes(){
             
 
     }
-    boolean collision(Bird a, Pipe b) {
+    
+    public boolean collision(Bird a, Pipe b) {
         return a.x < b.x + b.width &&   
                a.x + a.width > b.x &&   
                a.y < b.y + b.height &&  
@@ -208,6 +211,10 @@ void placePipes(){
     public void actionPerformed(ActionEvent e) {
         move();
         repaint();
+        if (gameOver) {
+            placePipeTimer.stop();
+            gameLoop.stop();
+        }
     }
 
 
@@ -219,12 +226,13 @@ void placePipes(){
             velocityY = -9;
 
             if (gameOver) {
-                //restart game by resetting conditions
+                //Restart game
+
                 bird.y = birdY;
                 velocityY = 0;
-                pipes.clear();
-                gameOver = false;
+                Pipes.clear();
                 score = 0;
+                gameOver = false;
                 gameLoop.start();
                 placePipeTimer.start();
             }
